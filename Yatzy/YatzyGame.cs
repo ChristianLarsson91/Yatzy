@@ -156,37 +156,37 @@ namespace Yatzy
                 {
                     case ConsoleKey.D1:
                         validChoose = true;
-                        score = CheckNumberOfPoints(rolledDice,1);
+                        score = Scoring.CheckNumberOfPoints(rolledDice,1);
                         currentPlayer.combinations.Remove(1);
                         break;
                     case ConsoleKey.D2:
                         validChoose = true;
-                        score = CheckNumberOfPoints(rolledDice, 2);
+                        score = Scoring.CheckNumberOfPoints(rolledDice, 2);
                         currentPlayer.combinations.Remove(2);
                         break;
                     case ConsoleKey.D3:
                         validChoose = true;
-                        score = CheckNumberOfPoints(rolledDice, 3);
+                        score = Scoring.CheckNumberOfPoints(rolledDice, 3);
                         currentPlayer.combinations.Remove(3);
                         break;
                     case ConsoleKey.D4:
                         validChoose = true;
-                        score = CheckNumberOfPoints(rolledDice, 4);
+                        score = Scoring.CheckNumberOfPoints(rolledDice, 4);
                         currentPlayer.combinations.Remove(4);
                         break;
                     case ConsoleKey.D5:
                         validChoose = true;
-                        score = CheckNumberOfPoints(rolledDice, 5);
+                        score = Scoring.CheckNumberOfPoints(rolledDice, 5);
                         currentPlayer.combinations.Remove(5);
                         break;
                     case ConsoleKey.D6:
                         validChoose = true;
-                        score = CheckNumberOfPoints(rolledDice, 6);
+                        score = Scoring.CheckNumberOfPoints(rolledDice, 6);
                         currentPlayer.combinations.Remove(6);
                         break;
                     case ConsoleKey.D7:
                         validChoose = true;
-                        score = CheckFullHouse(rolledDice);
+                        score = Scoring.CheckFullHouse(rolledDice);
                         currentPlayer.combinations.Remove(7);
                         break;
                     default:
@@ -196,30 +196,7 @@ namespace Yatzy
             }
             return score;
         }
-
-        public static int CheckNumberOfPoints(List<Tuple<int, string>> rolledDice,int diceNumber)
-        {
-            int score = 0;
-            foreach (var dice in rolledDice)
-            {
-                if (dice.Item1 == diceNumber)
-                {
-                    score += dice.Item1;
-                }
-            }
-            return score;
-        }
-
-        public static int CheckFullHouse(List<Tuple<int, string>> rolledDice)
-        {
-            var dices = rolledDice.Select(x => x.Item1).ToList();
-            var sorted = dices.GroupBy(x => x).Where(c => c.Count() > 1).Select(y => new { Dice = y.Key, Counter = y.Count() }).ToList();
-            if (sorted[0].Counter == 2 && sorted[1].Counter == 3 || sorted[0].Counter == 3 && sorted[1].Counter == 2)
-            {
-                return sorted[0].Counter * sorted[0].Dice + sorted[1].Counter * sorted[1].Dice;
-            }
-            return 0;
-        }
+        
 
         public ConsoleKeyInfo GetInput()
         {
